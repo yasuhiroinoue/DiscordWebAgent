@@ -66,17 +66,19 @@ async def on_message(message):
     if message.author == bot.user:
         return
     
-    text = prepare_message_content(message.content)
-    await message.add_reaction('💬')
-    
-    try:
-        response, log_message = get_agent_response(text)
-    except ValueError as e:
-        response = f'Error occurred during agent execution: {str(e)}'
-        log_message = ''
-    
-    await message.channel.send(response)
-    await send_log_message(message.channel, log_message)
+    if isinstance(message.channel, discord.DMChannel) or bot.user in message.mentions:
+        text = prepare_message_content(message.content)
+        await message.add_reaction('💬')
+        
+        async with message.channel.typing():
+            try:
+                response, log_message = get_agent_response(text)
+            except ValueError as e:
+                response = f'Error occurred during agent execution: {str(e)}'
+                log_message = ''
+            
+            await message.channel.send(response)
+            await send_log_message(message.channel, log_message)
 
 def prepare_message_content(content):
     current_date = datetime.datetime.now().strftime("%Y/%m/%d %H:%M")
