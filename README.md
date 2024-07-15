@@ -33,7 +33,6 @@ This project is a Discord bot that integrates with Google Search using a Large L
 3. Install the required dependencies:
     ```bash
     pip install -r requirements.txt
-    pip install -U langchain-google-vertexai anthropic[vertex]
     ```
 
 4. Create a `.env` file and add your credentials:
