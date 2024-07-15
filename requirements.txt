@@ -1,5 +1,5 @@
 python-dotenv
-discord.py==2.0.0
+discord.py
 langchain
 langchain-google-vertexai
 anthropic[vertex]
